@@ -6,6 +6,7 @@ export class AppRoutes {
     const router = Router();
 
     router.use('/api/v1/products', ProductRoutes.routes);
+    router.use('/api/v1/tags');
 
     return router;
   }
