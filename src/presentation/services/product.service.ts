@@ -1,6 +1,7 @@
 import { ProductModel } from '../../data';
 import { CustomError, PaginationDto } from '../../domain';
 import { ProductEntity } from '../../domain';
+import { CreateProductDto } from '../../domain/dtos/products/create-product.dto';
 
 export class ProductService {
   constructor() {}
@@ -46,6 +47,20 @@ export class ProductService {
             : null,
         products: productEntities,
       };
+    } catch (error) {
+      if (error instanceof CustomError) throw error;
+      console.log(error);
+      throw CustomError.internalServer();
+    }
+  }
+
+  public async createProduct(createProductDto: CreateProductDto) {
+    try {
+      const product = await ProductModel.create(createProductDto);
+
+      const productEntity = ProductEntity.fromObject(product);
+
+      return productEntity;
     } catch (error) {
       if (error instanceof CustomError) throw error;
       console.log(error);

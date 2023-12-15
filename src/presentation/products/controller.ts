@@ -1,6 +1,11 @@
 import { Request, Response } from 'express';
 import { ProductService } from '../services/product.service';
-import { CustomError, ErrorHandler, PaginationDto } from '../../domain';
+import {
+  CreateProductDto,
+  CustomError,
+  ErrorHandler,
+  PaginationDto,
+} from '../../domain';
 
 export class ProductController {
   constructor(
@@ -23,6 +28,17 @@ export class ProductController {
   };
 
   public createProduct = (req: Request, res: Response) => {
-    res.json('createProduct');
+    const [error, createProductDto] = CreateProductDto.create({
+      ...req.body,
+      createdBy: '657c35822cb82442ef7a239e',
+    });
+
+    if (error)
+      return this.errorHandler.handleError(CustomError.badRequest(error), res);
+
+    this.productService
+      .createProduct(createProductDto!)
+      .then((product) => res.status(201).json(product))
+      .catch((err) => this.errorHandler.handleError(err, res));
   };
 }
