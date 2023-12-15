@@ -52,4 +52,4 @@ UserSchema.pre(
 );
 
 // Create the User model based on the schema
-export const User = mongoose.model('User', UserSchema);
+export const UserModel = mongoose.model('User', UserSchema);
