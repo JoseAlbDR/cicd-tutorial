@@ -24,7 +24,7 @@ export class CreateProductDto {
     if (price <= 0) return ['Price must be greater than zero'];
 
     if (!tags || tags.length === 0) return ['Tags are required'];
-    if (!(tags as ITags[]).every((tag) => TAGS.includes(tag)))
+    if (!Validators.isValidTag(tags))
       return [`Not allowed tags used, allowed tags: ${TAGS.join(', ')}`];
 
     if (!createdBy) return ['Created by is required'];
