@@ -1,0 +1,5 @@
+(async () => {
+  main();
+})();
+
+function main() {}
