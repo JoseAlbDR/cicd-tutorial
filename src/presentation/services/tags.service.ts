@@ -1,15 +1,29 @@
 import { Lodash } from '../../config';
+import { ProductModel } from '../../data';
 import { CustomError, ErrorHandler, PaginationDto } from '../../domain';
 import { ProductService } from './product.service';
+import { ProductEntity } from '../../domain/entities/product.entity';
 
 export class TagsService {
-  constructor(private readonly productService: ProductService) {}
+  constructor() {}
 
-  public async getTags(paginationDto: PaginationDto) {
+  public async getTags() {
     try {
-      const data = await this.productService.getProducts(paginationDto);
+      const products = await ProductModel.find();
 
-      const tags = Lodash.unique(data.products);
+      const productEntities = products.map((product) => ({
+        ...ProductEntity.fromObject({
+          id: product.id,
+          name: product.name,
+          onSale: product.onSale,
+          price: product.price,
+          tags: product.tags,
+          createdBy: product.createdBy,
+          image: product.image,
+        }),
+      }));
+
+      const tags = Lodash.unique(productEntities);
 
       return tags;
     } catch (error) {
