@@ -36,6 +36,14 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
+UserSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform(doc, ret, options) {
+    delete ret._id;
+  },
+});
+
 // Hash the password before saving it
 // UserSchema.pre('save', async function () {
 //   if (!this.isModified('password')) return;
