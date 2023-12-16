@@ -47,7 +47,7 @@ export class ProductController {
   public createProduct = (req: Request, res: Response) => {
     const [error, createProductDto] = CreateProductDto.create({
       ...req.body,
-      createdBy: '657c35822cb82442ef7a239e',
+      createdBy: req.body.user.id,
     });
 
     if (error)

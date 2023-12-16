@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 interface JWTAdapterPayload {
+  id: string;
   name: string;
   email: string;
 }
@@ -12,16 +13,18 @@ export class JWTAdapter {
     return new Promise((resolve) => {
       jwt.sign(payload, this.seed, { expiresIn: duration }, (err, token) => {
         if (err) return resolve(null);
+        console.log({ token });
         resolve(token);
       });
     });
   }
 
-  public validateToken(token: string) {
+  public validateToken(token: string): Promise<JWTAdapterPayload | null> {
     return new Promise((resolve) => {
+      console.log({ token });
       jwt.verify(token, this.seed, (err, decoded) => {
         if (err) return resolve(null);
-        resolve(decoded);
+        resolve(decoded as JWTAdapterPayload);
       });
     });
   }

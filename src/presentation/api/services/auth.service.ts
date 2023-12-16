@@ -15,16 +15,7 @@ export class AuthService {
       const user = new UserModel(signupDto);
       await user.save();
 
-      const token = this.jwtAdapter.generateToken({
-        name: user.name,
-        email: user.email,
-      });
-
-      if (!token) throw 'Internal Server Error';
-
-      return token;
-
-      return token;
+      return user;
     } catch (error) {
       if (error instanceof CustomError) throw error;
       console.log(error);
@@ -42,7 +33,15 @@ export class AuthService {
       if (!isMatch)
         throw CustomError.unauthorized('Incorrect email or password');
 
-      return user;
+      const token = await this.jwtAdapter.generateToken({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      });
+
+      if (!token) throw new Error();
+
+      return token;
     } catch (error) {
       if (error instanceof CustomError) throw error;
       console.log(error);
