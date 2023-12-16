@@ -5,7 +5,7 @@ export class ProductEntity {
   constructor(
     public readonly id: string,
     public readonly name: string,
-    public readonly onSale: boolean,
+    public readonly sale: boolean,
     public readonly price: number,
     public readonly tags: ITags[],
     public readonly createdBy: string,
@@ -13,7 +13,7 @@ export class ProductEntity {
   ) {}
 
   static fromObject(obj: { [key: string]: any }) {
-    const { id, _id, name, onSale, price, tags, createdBy, image } = obj;
+    const { id, _id, name, sale, price, tags, createdBy, image } = obj;
 
     if (!_id && !id) {
       throw CustomError.badRequest('Missing id');
@@ -29,7 +29,7 @@ export class ProductEntity {
     return new ProductEntity(
       _id || id,
       name,
-      onSale,
+      sale,
       price,
       tags,
       createdBy,

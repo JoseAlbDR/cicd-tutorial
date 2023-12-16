@@ -23,7 +23,7 @@ export class Server {
   }
 
   async start() {
-    this.app.set('views', path.join(__dirname, 'views'));
+    this.app.set('views', path.join(__dirname, 'web', 'views'));
     this.app.set('view engine', 'ejs');
 
     /**
@@ -35,19 +35,19 @@ export class Server {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
 
-    // Public Folder
-    this.app.use(express.static(this.publicPath));
-
     // Routes
     this.app.use(this.routes);
 
+    // Public Folder
+    this.app.use(express.static(this.publicPath));
+
     //* SPA /^\/(?!api).*/  <== Únicamente si no empieza con la palabra api
-    this.app.get('*', (req, res) => {
-      const indexPath = path.join(
-        __dirname + `../../../${this.publicPath}/index.html`
-      );
-      res.sendFile(indexPath);
-    });
+    // this.app.get('*', (req, res) => {
+    //   const indexPath = path.join(
+    //     __dirname + `../../../${this.publicPath}/index.html`
+    //   );
+    //   res.sendFile(indexPath);
+    // });
 
     this.serverListener = this.app.listen(this.port, () => {
       console.log(`Server listening on port ${this.port}`);

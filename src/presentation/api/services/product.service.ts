@@ -28,7 +28,7 @@ export class ProductService {
         ...ProductEntity.fromObject({
           id: product.id,
           name: product.name,
-          onSale: product.onSale,
+          sale: product.sale,
           price: product.price,
           tags: product.tags,
           createdBy: product.createdBy,

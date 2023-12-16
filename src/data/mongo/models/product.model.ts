@@ -9,7 +9,7 @@ const ProductSchema = new mongoose.Schema(
       required: [true, 'Name is required'],
       index: true,
     },
-    onSale: {
+    sale: {
       type: Boolean,
       default: false,
       index: true,

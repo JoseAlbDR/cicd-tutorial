@@ -9,7 +9,7 @@ export type ITags = 'motor' | 'work' | 'mobile' | 'lifestyle';
 
 export interface IProduct {
   name: string;
-  onSale: boolean;
+  sale: boolean;
   price: number;
   tags: ITags[];
   createdAt: Date;
@@ -58,10 +58,10 @@ const generateProducts = (n: number) => {
       category: name,
     });
     const price = Math.floor(Math.random() * (1000 - 1 + 1)) + 1;
-    const onSale = getRandomBoolean();
+    const sale = getRandomBoolean();
     const tags = getRandomTags(Math.floor(Math.random() * 4) + 1);
     const createdAt = new Date();
-    const product = { name, onSale, price, image, tags, createdAt };
+    const product = { name, sale, price, image, tags, createdAt };
     products.push(product);
   }
 

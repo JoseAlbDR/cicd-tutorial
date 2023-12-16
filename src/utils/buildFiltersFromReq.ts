@@ -12,8 +12,6 @@ export class BuildFilterFromReq {
   static build(filtersDto: FiltersDto) {
     const { name, tags, sale, price } = filtersDto;
 
-    console.log({ filtersDto });
-
     let queryObject: QueryObject = {};
 
     // Filter by name
@@ -33,7 +31,7 @@ export class BuildFilterFromReq {
 
     // Filter by sale type
     if (sale) {
-      queryObject.sale = sale === 'onSale' ? true : false;
+      queryObject.sale = sale === 'onSale';
     }
 
     // Filter by price
