@@ -33,7 +33,16 @@ export class AuthController {
 
     this.authService
       .login(loginDto!)
-      .then((user) => res.json(user))
+      .then((token) => {
+        res.cookie('token', token, {
+          httpOnly: true,
+          expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+          secure: process.env.NODE_ENV === 'production',
+          signed: true,
+        });
+
+        return res.json({ msg: 'user successfully logged in' });
+      })
       .catch((err) => this.errorHandler.handleError(err, res));
   };
 }

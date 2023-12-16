@@ -1,8 +1,9 @@
+import { JWTAdapter } from '../../../config';
 import { UserModel } from '../../../data';
 import { CustomError, LoginDto, SignupDto } from '../../../domain';
 
 export class AuthService {
-  constructor() {}
+  constructor(private readonly jwtAdapter: JWTAdapter) {}
 
   public async signup(signupDto: SignupDto) {
     try {
@@ -14,7 +15,16 @@ export class AuthService {
       const user = new UserModel(signupDto);
       await user.save();
 
-      return user;
+      const token = this.jwtAdapter.generateToken({
+        name: user.name,
+        email: user.email,
+      });
+
+      if (!token) throw 'Internal Server Error';
+
+      return token;
+
+      return token;
     } catch (error) {
       if (error instanceof CustomError) throw error;
       console.log(error);
