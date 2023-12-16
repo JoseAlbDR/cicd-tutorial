@@ -1,6 +1,5 @@
 import { UserModel } from '../../../data';
-import { CustomError } from '../../../domain';
-import { SignupDto } from '../../../domain/dtos/auth/signup.dto';
+import { CustomError, LoginDto, SignupDto } from '../../../domain';
 
 export class AuthService {
   constructor() {}
@@ -14,6 +13,7 @@ export class AuthService {
 
       const user = new UserModel(signupDto);
       await user.save();
+
       return user;
     } catch (error) {
       if (error instanceof CustomError) throw error;
@@ -22,5 +22,20 @@ export class AuthService {
     }
   }
 
-  public async login() {}
+  public async login(loginDto: LoginDto) {
+    try {
+      const user = await UserModel.findOne({ email: loginDto.email });
+      if (!user) throw CustomError.unauthorized('Incorrect email or password');
+
+      const isMatch = user.checkPassword(loginDto.password);
+      if (!isMatch)
+        throw CustomError.unauthorized('Incorrect email or password');
+
+      return user;
+    } catch (error) {
+      if (error instanceof CustomError) throw error;
+      console.log(error);
+      throw CustomError.internalServer();
+    }
+  }
 }
