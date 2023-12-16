@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { BcryptAdapter } from '../../../config';
 
 // Define the User schema
 const UserSchema = new mongoose.Schema(
@@ -27,12 +28,12 @@ const UserSchema = new mongoose.Schema(
   {
     timestamps: true,
 
-    // methods: {
-    //   // Method to check if a given password matches the stored password
-    //   async checkPassword(password: string) {
-    //     return await bcrypt.compare(password, this.password);
-    //   },
-    // },
+    methods: {
+      // Method to check if a given password matches the stored password
+      async checkPassword(password: string) {
+        return BcryptAdapter.compare(password, this.password);
+      },
+    },
   }
 );
 
@@ -41,14 +42,15 @@ UserSchema.set('toJSON', {
   versionKey: false,
   transform(doc, ret, options) {
     delete ret._id;
+    delete ret.password;
   },
 });
 
 // Hash the password before saving it
-// UserSchema.pre('save', async function () {
-//   if (!this.isModified('password')) return;
-//   this.password = await hashPassword(this.password);
-// });
+UserSchema.pre('save', async function () {
+  if (!this.isModified('password')) return;
+  this.password = BcryptAdapter.hash(this.password);
+});
 
 // Delete associated products when a user is deleted
 UserSchema.pre(
