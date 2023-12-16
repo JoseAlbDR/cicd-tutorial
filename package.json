@@ -32,7 +32,9 @@
   },
   "dependencies": {
     "@faker-js/faker": "^8.3.1",
+    "@types/cookie-parser": "^1.4.6",
     "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
     "dotenv": "^16.3.1",
     "ejs": "^3.1.9",
     "env-var": "^7.4.1",

@@ -3,4 +3,4 @@ export * from './tags';
 export * from './bcrypt.adapter';
 export * from './validators';
 export * from './lodash.adapter';
-export * from './jswt.adapter';
+export * from './jwt.adapter';
