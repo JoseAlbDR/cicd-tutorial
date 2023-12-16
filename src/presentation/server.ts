@@ -23,6 +23,9 @@ export class Server {
   }
 
   async start() {
+    this.app.set('views', path.join(__dirname, 'views'));
+    this.app.set('view engine', 'ejs');
+
     // Middlewares
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
