@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { TagsService } from '../services/tags.service';
 import { ProductService } from '../services/product.service';
-import { ErrorHandler } from '../../domain';
+import { ErrorHandler } from '../../../domain';
 import { TagsController } from './controller';
 
 export class TagsRoutes {

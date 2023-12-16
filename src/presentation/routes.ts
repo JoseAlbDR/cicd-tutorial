@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { ProductRoutes } from './products/routes';
-import { TagsRoutes } from './tags/routes';
+import { ProductRoutes } from './api/products/routes';
+import { TagsRoutes } from './api/tags/routes';
 
 export class AppRoutes {
   static get routes(): Router {

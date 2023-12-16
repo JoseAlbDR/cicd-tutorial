@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { CustomError, ErrorHandler, PaginationDto } from '../../domain';
+import { CustomError, ErrorHandler, PaginationDto } from '../../../domain';
 import { TagsService } from '../services/tags.service';
 
 export class TagsController {

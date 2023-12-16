@@ -1,7 +1,7 @@
-import { ProductModel } from '../../data';
-import { CustomError, PaginationDto } from '../../domain';
-import { ProductEntity } from '../../domain';
-import { CreateProductDto } from '../../domain/dtos/products/create-product.dto';
+import { ProductModel } from '../../../data';
+import { CustomError, PaginationDto } from '../../../domain';
+import { ProductEntity } from '../../../domain';
+import { CreateProductDto } from '../../../domain/dtos/products/create-product.dto';
 
 export class ProductService {
   constructor() {}

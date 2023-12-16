@@ -1,8 +1,7 @@
-import { Lodash } from '../../config';
-import { ProductModel } from '../../data';
-import { CustomError, ErrorHandler, PaginationDto } from '../../domain';
-import { ProductService } from './product.service';
-import { ProductEntity } from '../../domain/entities/product.entity';
+import { Lodash } from '../../../config';
+import { ProductModel } from '../../../data';
+import { CustomError } from '../../../domain';
+import { ProductEntity } from '../../../domain/entities/product.entity';
 
 export class TagsService {
   constructor() {}

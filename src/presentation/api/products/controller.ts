@@ -5,7 +5,7 @@ import {
   CustomError,
   ErrorHandler,
   PaginationDto,
-} from '../../domain';
+} from '../../../domain';
 
 export class ProductController {
   constructor(
