@@ -15,4 +15,15 @@ export class Validators {
     const regex = /^(?:(\d+)-(\d+)|(\d+)-|\-(\d+))$/;
     return regex.test(price);
   }
+
+  static isValidEmail(email: string) {
+    const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    return regex.test(email);
+  }
+
+  static isValidPassword(password: string) {
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>])[A-Za-z\d!@#$%^&*()\-_=+{};:,<.>.]{6,}$/;
+    return regex.test(password);
+  }
 }
