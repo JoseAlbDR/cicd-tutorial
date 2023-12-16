@@ -26,6 +26,11 @@ export class Server {
     this.app.set('views', path.join(__dirname, 'views'));
     this.app.set('view engine', 'ejs');
 
+    /**
+     * Global Template variables
+     */
+    this.app.locals.title = 'NodePop';
+
     // Middlewares
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
