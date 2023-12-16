@@ -5,3 +5,4 @@ export * from './errors/error.handler';
 export * from './dtos/products/create-product.dto';
 export * from './dtos/shared/filters.dto';
 export * from './dtos/auth/signup.dto';
+export * from './dtos/auth/login.dto';

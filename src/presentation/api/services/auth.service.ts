@@ -21,4 +21,6 @@ export class AuthService {
       throw CustomError.internalServer();
     }
   }
+
+  public async login() {}
 }
