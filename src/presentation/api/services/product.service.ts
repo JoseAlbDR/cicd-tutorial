@@ -2,17 +2,21 @@ import { ProductModel } from '../../../data';
 import { CustomError, PaginationDto } from '../../../domain';
 import { ProductEntity } from '../../../domain';
 import { CreateProductDto } from '../../../domain/dtos/products/create-product.dto';
+import { QueryObject } from '../../../utils';
 
 export class ProductService {
   constructor() {}
 
-  public async getProducts(paginationDto: PaginationDto) {
+  public async getProducts(
+    paginationDto: PaginationDto,
+    queryObject: QueryObject
+  ) {
     const { limit, page } = paginationDto;
 
     try {
       const [total, products] = await Promise.all([
         ProductModel.countDocuments(),
-        ProductModel.find()
+        ProductModel.find(queryObject)
           .skip((page - 1) * limit)
           .limit(limit)
           .populate('createdBy', 'name email'),
