@@ -12,6 +12,7 @@ export class AuthRoutes {
     const authController = new AuthController(authService, errorHandler);
 
     router.post('/signup', authController.signup);
+    router.post('/login', authController.login);
 
     return router;
   }

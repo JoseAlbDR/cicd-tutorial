@@ -30,7 +30,7 @@ const UserSchema = new mongoose.Schema(
 
     methods: {
       // Method to check if a given password matches the stored password
-      async checkPassword(password: string) {
+      checkPassword(password: string) {
         return BcryptAdapter.compare(password, this.password);
       },
     },

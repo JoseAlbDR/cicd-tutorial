@@ -28,6 +28,7 @@ export class AuthService {
       if (!user) throw CustomError.unauthorized('Incorrect email or password');
 
       const isMatch = user.checkPassword(loginDto.password);
+
       if (!isMatch)
         throw CustomError.unauthorized('Incorrect email or password');
 
