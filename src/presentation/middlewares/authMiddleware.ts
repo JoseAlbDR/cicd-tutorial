@@ -10,15 +10,13 @@ export class AuthMiddleware {
     res: Response,
     next: NextFunction
   ) => {
-    const { token } = req.signedCookies as Record<string, string>;
+    const { token } = req.signedCookies;
 
     if (!token) return res.status(401).json('Invalid authentication');
 
     const payload = await this.jwtAdapter.validateToken(token);
 
     if (!token) return res.status(401).json('Invalid authentication');
-
-    console.log({ payload });
 
     req.body.user = payload;
     next();

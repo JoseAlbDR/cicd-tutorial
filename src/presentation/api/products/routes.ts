@@ -18,7 +18,12 @@ export class ProductRoutes {
       errorHandler
     );
 
-    router.get('/', productController.getProducts);
+    router.get(
+      '/',
+      authMiddleware.authenticateUser,
+      productController.getProducts
+    );
+
     router.post(
       '/',
       authMiddleware.authenticateUser,

@@ -12,6 +12,7 @@ export class AppRoutes {
     router.use('/api/v1/products', ProductRoutes.routes);
     router.use('/api/v1/tags', TagsRoutes.routes);
     router.use('/api/v1/auth', AuthRoutes.routes);
+    router.use('/api/v1/images');
 
     // ViEWS routes
     router.use('/', ProductWebRoutes.routes);
