@@ -4,15 +4,22 @@ import path from 'path';
 import { Uuid } from '../../../config';
 
 export class FileUploadService {
-  constructor(private readonly uuid = Uuid.v4) {}
+  constructor(private readonly uuid = Uuid.v4()) {}
 
   private makeFolder(folderPath: string) {
-    if (!fs.existsSync(folderPath)) fs.mkdirSync(folderPath);
+    if (!fs.existsSync(folderPath))
+      fs.mkdirSync(folderPath, { recursive: true });
   }
 
-  public async uploadSingle(file: UploadedFile, folder: string = 'uploads') {
+  public async uploadSingle(file: UploadedFile, folder: string = 'images') {
     try {
-      const destination = path.resolve(__dirname, '../../../', folder);
+      const destination = path.resolve(
+        __dirname,
+        '../../../../',
+        'uploads',
+        folder
+      );
+
       this.makeFolder(destination);
 
       const fileExtension = file.mimetype.split('/').at(-1) ?? '';
