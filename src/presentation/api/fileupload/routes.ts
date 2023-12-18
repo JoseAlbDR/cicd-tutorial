@@ -27,8 +27,8 @@ export class FileUploadRoutes {
       ]),
     ]);
 
-    router.get('/single/:destiny', fileUploadController.uploadSingleFile);
-    router.get('/multiple/:destiny', fileUploadController.uploadMultipleFiles);
+    router.post('/single/:destiny', fileUploadController.uploadSingleFile);
+    router.post('/multiple/:destiny', fileUploadController.uploadMultipleFiles);
 
     return router;
   }

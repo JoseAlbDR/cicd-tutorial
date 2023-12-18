@@ -3,6 +3,8 @@ import { UploadedFile } from 'express-fileupload';
 
 export class FileUploadMiddleware {
   static containFiles(req: Request, res: Response, next: NextFunction) {
+    console.log(req.files);
+
     if (!req.files || Object.keys(req.files).length === 0)
       return res.status(400).json({ error: 'No files found.' });
 

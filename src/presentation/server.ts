@@ -2,6 +2,7 @@ import express, { Router } from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import { envs } from '../config';
+import fileUpload from 'express-fileupload';
 
 interface Options {
   port: number;
@@ -37,6 +38,11 @@ export class Server {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(cookieParser(envs.JWT_SEED));
+    this.app.use(
+      fileUpload({
+        limits: { fileSize: 50 * 1024 * 1024 },
+      })
+    );
 
     // Routes
     this.app.use(this.routes);
