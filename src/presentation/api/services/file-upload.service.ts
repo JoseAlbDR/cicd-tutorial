@@ -15,8 +15,7 @@ export class FileUploadService {
     try {
       const destination = path.resolve(
         __dirname,
-        '../../../../',
-        'uploads',
+        '../../../../uploads',
         folder
       );
 
@@ -37,7 +36,7 @@ export class FileUploadService {
 
   public async uploadMultiple(
     files: UploadedFile[],
-    folder: string = 'uploads'
+    folder: string = 'images'
   ) {
     const fileNames = await Promise.all(
       files.map((file) => this.uploadSingle(file, folder))

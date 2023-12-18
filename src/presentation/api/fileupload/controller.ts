@@ -24,7 +24,7 @@ export class FileUploadController {
     const files = req.body.files as UploadedFile[];
 
     this.fileUploadService
-      .uploadMultiple(files)
+      .uploadMultiple(files, destiny)
       .then((uploaded) => res.json(uploaded))
       .catch((error) => this.errorHandler.handleError(error, res));
   };
