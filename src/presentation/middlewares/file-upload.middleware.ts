@@ -8,8 +8,10 @@ export class FileUploadMiddleware {
     if (!req.files || Object.keys(req.files).length === 0)
       return res.status(400).json({ error: 'No files found.' });
 
-    if (!Array.isArray(req.files.file)) req.body.files = [req.files.file];
-    if (Array.isArray(req.files.file)) req.body.files = req.files.file;
+    if (!Array.isArray(req.files.file))
+      return (req.body.files = [req.files.file]);
+    if (Array.isArray(req.files.file)) return (req.body.files = req.files.file);
+    next();
   }
 
   static validateType(validTypes: string[]) {
@@ -17,7 +19,7 @@ export class FileUploadMiddleware {
       const type = req.url.split('/').at(-1) ?? '';
 
       if (!validTypes.includes(type))
-        res.status(400).json({
+        return res.status(400).json({
           error: `Invalid type: ${type}, valid values: ${validTypes.join(
             ', '
           )}`,
