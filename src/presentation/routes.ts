@@ -17,6 +17,7 @@ export class AppRoutes {
 
     // ViEWS routes
     router.use('/', ProductWebRoutes.routes);
+    router.use('/:locale');
 
     return router;
   }
