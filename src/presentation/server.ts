@@ -1,7 +1,7 @@
 import express, { Router } from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
-import { envs } from '../config';
+import { envs, i18nAdaper } from '../config';
 import fileUpload from 'express-fileupload';
 
 interface Options {
@@ -43,7 +43,16 @@ export class Server {
         limits: { fileSize: 50 * 1024 * 1024 },
       })
     );
-
+    this.app.use(
+      i18nAdaper.configure({
+        locales: ['es', 'en'],
+        directory: path.join(__dirname, 'locales'),
+        defaultLocale: 'en',
+        autoReload: true,
+        syncFiles: true,
+        cookie: 'nodepop-locale',
+      })
+    );
     // Routes
     this.app.use(this.routes);
 

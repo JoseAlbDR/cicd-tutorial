@@ -1,7 +1,7 @@
-import i18n from 'i18n';
+import { I18n } from 'i18n';
 
 interface i18nOptions {
-  locales: [string];
+  locales: string[];
   directory: string;
   defaultLocale: string;
   autoReload: boolean;
@@ -11,10 +11,10 @@ interface i18nOptions {
 
 export class i18nAdaper {
   static configure(options: i18nOptions) {
-    i18n.configure({ ...options });
+    const config = new I18n({ ...options });
 
-    i18n.setLocale(options.defaultLocale);
+    config.setLocale(options.defaultLocale);
 
-    return i18n;
+    return config.init;
   }
 }
