@@ -2,17 +2,20 @@ import { NextFunction, Request, Response } from 'express';
 import { UploadedFile } from 'express-fileupload';
 
 export class FileUploadMiddleware {
-  static containFiles({ required = true }: { required?: boolean } = {}) {
+  static containFiles({
+    required = true,
+    varName = 'file',
+  }: { required?: boolean; varName?: string } = {}) {
     return (req: Request, res: Response, next: NextFunction) => {
-      console.log(req.files);
-
-      if ((required && !req.files) || Object.keys(req.files!).length === 0)
+      if (required && (!req.files || Object.keys(req.files).length === 0))
         return res.status(400).json({ error: 'No files found.' });
 
       if (req.files) {
-        if (!Array.isArray(req.files.file)) req.body.files = [req.files.file];
+        if (!Array.isArray(req.files[varName]))
+          req.body.files = [req.files[varName]];
 
-        if (Array.isArray(req.files.file)) req.body.files = req.files.file;
+        if (Array.isArray(req.files[varName]))
+          req.body.files = req.files[varName];
       }
 
       next();

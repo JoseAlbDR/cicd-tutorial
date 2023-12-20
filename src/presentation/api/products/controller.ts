@@ -8,10 +8,14 @@ import {
   PaginationDto,
 } from '../../../domain';
 import { BuildFilterFromReq } from '../../../utils';
+import { FileUploadService } from '../services/file-upload.service';
 
 export class ProductController {
+  private fileName: string | string[] = '';
+
   constructor(
     private readonly productService: ProductService,
+    private readonly fileUploadService: FileUploadService,
     private readonly errorHandler: ErrorHandler
   ) {}
 
@@ -45,8 +49,16 @@ export class ProductController {
   };
 
   public createProduct = (req: Request, res: Response) => {
+    const { files } = req.body;
+
+    this.fileUploadService
+      .uploadSingle(files[0])
+      .then(({ fileName }) => (this.fileName = fileName))
+      .catch((err) => this.errorHandler.handleError(err, res));
+
     const [error, createProductDto] = CreateProductDto.create({
       ...req.body,
+      image: this.fileName,
       createdBy: req.body.user.id,
     });
 

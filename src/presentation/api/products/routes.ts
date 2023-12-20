@@ -4,6 +4,8 @@ import { ProductService } from '../services/product.service';
 import { ErrorHandler } from '../../../domain';
 import { JWTAdapter, envs } from '../../../config';
 import { AuthMiddleware } from '../../middlewares/auth.middleware';
+import { FileUploadMiddleware } from '../../middlewares/file-upload.middleware';
+import { FileUploadService } from '../services/file-upload.service';
 
 export class ProductRoutes {
   static get routes(): Router {
@@ -12,9 +14,11 @@ export class ProductRoutes {
     const jwtAdapter = new JWTAdapter(envs.JWT_SEED);
     const authMiddleware = new AuthMiddleware(jwtAdapter);
     const productService = new ProductService();
+    const fileUploadService = new FileUploadService();
     const errorHandler = new ErrorHandler();
     const productController = new ProductController(
       productService,
+      fileUploadService,
       errorHandler
     );
 
@@ -27,6 +31,7 @@ export class ProductRoutes {
     router.post(
       '/',
       authMiddleware.authenticateUser,
+      FileUploadMiddleware.containFiles({ required: false, varName: 'image' }),
       productController.createProduct
     );
 
