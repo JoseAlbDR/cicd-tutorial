@@ -39,10 +39,7 @@ export class ProductWebController {
 
     this.productService
       .getProducts(paginationDto!, queryObject)
-      .then(({ products }) => {
-        console.log({ products });
-        res.render('index', { products });
-      })
+      .then(({ products }) => res.render('index', { products }))
       .catch((err) => this.errorHandler.handleError(err, res));
   };
 }

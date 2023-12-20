@@ -4,6 +4,7 @@ import { TagsRoutes } from './api/tags/routes';
 import { ProductWebRoutes } from './web/products/routes';
 import { AuthRoutes } from './api/auth/routes';
 import { FileUploadRoutes } from './api/fileupload/routes';
+import { ChangeLocaleRoutes } from './web/change-locale/routes';
 
 export class AppRoutes {
   static get routes(): Router {
@@ -17,7 +18,7 @@ export class AppRoutes {
 
     // ViEWS routes
     router.use('/', ProductWebRoutes.routes);
-    router.use('/:locale');
+    router.use('/', ChangeLocaleRoutes.routes);
 
     return router;
   }
