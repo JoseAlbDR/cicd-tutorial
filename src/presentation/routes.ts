@@ -18,7 +18,7 @@ export class AppRoutes {
 
     // ViEWS routes
     router.use('/', ProductWebRoutes.routes);
-    router.use('/', ChangeLocaleRoutes.routes);
+    router.use('/change-locale', ChangeLocaleRoutes.routes);
 
     return router;
   }
