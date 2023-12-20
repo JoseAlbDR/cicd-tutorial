@@ -16,7 +16,7 @@ export class FileUploadRoutes {
     );
 
     router.use([
-      FileUploadMiddleware.containFiles,
+      FileUploadMiddleware.containFiles(),
       FileUploadMiddleware.validateType(['users', 'products']),
       FileUploadMiddleware.validateExtension([
         'png',

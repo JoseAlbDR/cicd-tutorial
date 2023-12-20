@@ -3,6 +3,11 @@ import { BcryptAdapter } from '../../config';
 export const seedData = {
   users: [
     {
+      name: 'User',
+      email: 'user@example.com',
+      password: BcryptAdapter.hash(String(1234)),
+    },
+    {
       name: 'Test 1',
       email: 'test1@google.com',
       password: BcryptAdapter.hash('123456'),

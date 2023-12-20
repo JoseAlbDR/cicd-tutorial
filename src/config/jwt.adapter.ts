@@ -7,13 +7,13 @@ interface JWTAdapterPayload {
 }
 
 export class JWTAdapter {
-  constructor(public readonly seed: string) {}
+  constructor(private readonly seed: string) {}
 
   public generateToken(payload: JWTAdapterPayload, duration: string = '2h') {
     return new Promise((resolve) => {
       jwt.sign(payload, this.seed, { expiresIn: duration }, (err, token) => {
         if (err) return resolve(null);
-        console.log({ token });
+
         resolve(token);
       });
     });
@@ -21,7 +21,6 @@ export class JWTAdapter {
 
   public validateToken(token: string): Promise<JWTAdapterPayload | null> {
     return new Promise((resolve) => {
-      console.log({ token });
       jwt.verify(token, this.seed, (err, decoded) => {
         if (err) return resolve(null);
         resolve(decoded as JWTAdapterPayload);
