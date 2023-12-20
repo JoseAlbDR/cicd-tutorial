@@ -7,7 +7,8 @@ import fileUpload from 'express-fileupload';
 interface Options {
   port: number;
   routes: Router;
-  publicPath?: string;
+  publicPath: string;
+  productsImagePath: string;
 }
 
 export class Server {
@@ -15,14 +16,16 @@ export class Server {
   private serverListener?: any;
   private readonly port: number;
   private readonly publicPath: string;
+  private readonly productsImagePath: string;
   private readonly routes: Router;
 
   constructor(options: Options) {
-    const { port, routes, publicPath = 'public' } = options;
+    const { port, routes, publicPath, productsImagePath } = options;
 
     this.port = port;
     this.routes = routes;
     this.publicPath = publicPath;
+    this.productsImagePath = productsImagePath;
   }
 
   async start() {
@@ -58,6 +61,7 @@ export class Server {
 
     // Public Folder
     this.app.use(express.static(this.publicPath));
+    this.app.use(express.static(this.productsImagePath));
 
     //* SPA /^\/(?!api).*/  <== Únicamente si no empieza con la palabra api
     // this.app.get('*', (req, res) => {

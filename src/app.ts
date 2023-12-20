@@ -16,6 +16,8 @@ async function main() {
   const server = new Server({
     port: envs.PORT,
     routes: AppRoutes.routes,
+    publicPath: envs.PUBLIC_FOLDER,
+    productsImagePath: envs.UPLOADS_FOLDER,
   });
 
   server.start();

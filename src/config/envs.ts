@@ -8,4 +8,7 @@ export const envs = {
   MONGO_DB_NAME: get('MONGO_DB_NAME').required().asString(),
 
   JWT_SEED: get('JWT_SEED').required().asString(),
+
+  PUBLIC_FOLDER: get('PUBLIC_FOLDER').default('public').asString(),
+  UPLOADS_FOLDER: get('UPLOADS_FOLDER').default('uploads').asString(),
 };

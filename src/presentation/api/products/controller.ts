@@ -11,8 +11,6 @@ import { BuildFilterFromReq } from '../../../utils';
 import { FileUploadService } from '../services/file-upload.service';
 
 export class ProductController {
-  private fileName: string | string[] = '';
-
   constructor(
     private readonly productService: ProductService,
     private readonly fileUploadService: FileUploadService,
@@ -52,22 +50,25 @@ export class ProductController {
     const { files } = req.body;
 
     this.fileUploadService
-      .uploadSingle(files[0])
-      .then(({ fileName }) => (this.fileName = fileName))
-      .catch((err) => this.errorHandler.handleError(err, res));
+      .uploadSingle(files[0], 'products')
+      .then(({ fileName: image }) => {
+        const [error, createProductDto] = CreateProductDto.create({
+          ...req.body,
+          image,
+          createdBy: req.body.user.id,
+        });
 
-    const [error, createProductDto] = CreateProductDto.create({
-      ...req.body,
-      image: this.fileName,
-      createdBy: req.body.user.id,
-    });
+        if (error)
+          return this.errorHandler.handleError(
+            CustomError.badRequest(error),
+            res
+          );
 
-    if (error)
-      return this.errorHandler.handleError(CustomError.badRequest(error), res);
-
-    this.productService
-      .createProduct(createProductDto!)
-      .then((product) => res.status(201).json(product))
+        this.productService
+          .createProduct(createProductDto!)
+          .then((product) => res.status(201).json(product))
+          .catch((err) => this.errorHandler.handleError(err, res));
+      })
       .catch((err) => this.errorHandler.handleError(err, res));
   };
 }
