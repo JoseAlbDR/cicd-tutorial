@@ -32,7 +32,9 @@ export class ProductService {
           price: product.price,
           tags: product.tags,
           createdBy: product.createdBy,
-          image: product.image,
+          image: product.image?.startsWith('http')
+            ? product.image
+            : `products/${product.image}`,
         }),
       }));
 
