@@ -33,7 +33,7 @@ export class CreateProductDto {
 
     return [
       undefined,
-      new CreateProductDto(name, onSale, price, tags, createdBy, image),
+      new CreateProductDto(name, onSaleBoolean, price, tags, createdBy, image),
     ];
   }
 }
