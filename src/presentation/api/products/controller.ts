@@ -9,6 +9,7 @@ import {
 } from '../../../domain';
 import { BuildFilterFromReq } from '../../../utils';
 import { FileUploadService } from '../services/file-upload.service';
+import { UploadedFile } from 'express-fileupload';
 
 export class ProductController {
   constructor(
@@ -46,33 +47,25 @@ export class ProductController {
       .catch((err) => this.errorHandler.handleError(err, res));
   };
 
-  public createProduct = (req: Request, res: Response) => {
+  public createProduct = async (req: Request, res: Response) => {
     const { files } = req.body;
 
-    console.log({ files });
+    const { fileName } = !files
+      ? { fileName: '' }
+      : await this.fileUploadService.uploadSingle(files[0], 'products');
 
-    if (!files) files[0] = '';
+    const [error, createProductDto] = CreateProductDto.create({
+      ...req.body,
+      image: fileName,
+      createdBy: req.body.user.id,
+    });
 
-    this.fileUploadService
-      .uploadSingle(files[0], 'products')
-      .then(({ fileName: image }) => {
-        const [error, createProductDto] = CreateProductDto.create({
-          ...req.body,
-          image,
-          createdBy: req.body.user.id,
-        });
+    if (error)
+      return this.errorHandler.handleError(CustomError.badRequest(error), res);
 
-        if (error)
-          return this.errorHandler.handleError(
-            CustomError.badRequest(error),
-            res
-          );
-
-        this.productService
-          .createProduct(createProductDto!)
-          .then((product) => res.status(201).json(product))
-          .catch((err) => this.errorHandler.handleError(err, res));
-      })
+    this.productService
+      .createProduct(createProductDto!)
+      .then((product) => res.status(201).json(product))
       .catch((err) => this.errorHandler.handleError(err, res));
   };
 }

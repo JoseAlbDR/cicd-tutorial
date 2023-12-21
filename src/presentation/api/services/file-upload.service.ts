@@ -21,6 +21,8 @@ export class FileUploadService {
   }
 
   public async uploadSingle(file: UploadedFile, folder: string = 'images') {
+    if (!file) return { filename: '' };
+
     try {
       this.destination = path.resolve(__dirname, '../../../../uploads', folder);
 
