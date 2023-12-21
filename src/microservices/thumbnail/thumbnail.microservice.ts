@@ -30,8 +30,7 @@ export class ThumbnailMicroservice {
 
       return 'Thumbnail created';
     } catch (error) {
-      console.log(error);
-      throw error;
+      throw String(error);
     }
   }
 }
