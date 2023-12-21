@@ -7,7 +7,7 @@ interface RequestOptions {
 }
 
 export class CoteAdapter {
-  static request(options: RequestOptions) {
+  request(options: RequestOptions) {
     const { name, type, ...payload } = options;
 
     const requester = new Requester({ name });
@@ -17,6 +17,6 @@ export class CoteAdapter {
       ...payload,
     };
 
-    requester.send(event, (result) => console.log(result));
+    requester.send(event, (err, result) => console.log({ err, result }));
   }
 }

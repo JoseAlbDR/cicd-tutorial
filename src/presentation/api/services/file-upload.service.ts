@@ -1,10 +1,13 @@
 import { UploadedFile } from 'express-fileupload';
 import fs from 'fs';
 import path from 'path';
-import { Uuid } from '../../../config';
+import { CoteAdapter, Uuid } from '../../../config';
 
 export class FileUploadService {
-  constructor(private readonly uuid = Uuid.v4()) {}
+  constructor(
+    private readonly uuid = Uuid.v4(),
+    private readonly coteAdapter = new CoteAdapter()
+  ) {}
 
   private makeFolder(folderPath: string) {
     if (!fs.existsSync(folderPath))
@@ -24,6 +27,14 @@ export class FileUploadService {
       const fileExtension = file.mimetype.split('/').at(-1) ?? '';
 
       const fileName = `${this.uuid}.${fileExtension}`;
+
+      this.coteAdapter.request({
+        name: 'microservice',
+        type: 'generate-thumbnail',
+        imagePath: destination,
+        imageExtension: fileExtension,
+        imageName: fileName.split('.').at(0),
+      });
 
       file.mv(`${destination}/${fileName}`);
 

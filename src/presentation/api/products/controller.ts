@@ -49,6 +49,10 @@ export class ProductController {
   public createProduct = (req: Request, res: Response) => {
     const { files } = req.body;
 
+    console.log({ files });
+
+    if (!files) files[0] = '';
+
     this.fileUploadService
       .uploadSingle(files[0], 'products')
       .then(({ fileName: image }) => {

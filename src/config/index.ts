@@ -6,3 +6,4 @@ export * from './lodash.adapter';
 export * from './jwt.adapter';
 export * from './uuid.adapter';
 export * from './i18n.adapter';
+export * from './cote.adapter';

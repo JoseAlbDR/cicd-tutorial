@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { ProductController } from './controller';
 import { ProductService } from '../services/product.service';
 import { ErrorHandler } from '../../../domain';
-import { JWTAdapter, envs } from '../../../config';
+import { CoteAdapter, JWTAdapter, envs } from '../../../config';
 import { AuthMiddleware } from '../../middlewares/auth.middleware';
 import { FileUploadMiddleware } from '../../middlewares/file-upload.middleware';
 import { FileUploadService } from '../services/file-upload.service';
