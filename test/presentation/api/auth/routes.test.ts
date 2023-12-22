@@ -143,5 +143,14 @@ describe('Api routes testing', () => {
 
       expect(body).toEqual({ msg: 'user successfully logged in' });
     });
+
+    test('Should return 401 api/auth/login', async () => {
+      const { body } = await request(testServer.app)
+        .post(loginRoute)
+        .send(loginUser)
+        .expect(401);
+
+      expect(body).toEqual({ error: 'Incorrect email or password' });
+    });
   });
 });
