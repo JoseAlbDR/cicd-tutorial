@@ -33,20 +33,6 @@ describe('Api routes testing', () => {
     password: 'M5e5k5i57.',
   };
   describe('Signup route tests api/auth/signup', () => {
-    // const product1 = {
-    //   name: 'Product 1',
-    //   price: 1,
-    //   tags: ['motor'],
-    //   image: '',
-    // };
-
-    // const product2 = {
-    //   name: 'Product 1',
-    //   price: 1,
-    //   tags: ['lifestyle', 'motor'],
-    //   image: '',
-    // };
-
     test('Should create an user api/auth/signup', async () => {
       const { body } = await request(testServer.app)
         .post(signupRoute)
