@@ -152,5 +152,16 @@ describe('Api routes testing', () => {
 
       expect(body).toEqual({ error: 'Incorrect email or password' });
     });
+
+    test('Should return 400 error required email api/auth/login', async () => {
+      const { body } = await request(testServer.app)
+        .post(loginRoute)
+        .send()
+        .expect(400);
+
+      console.log({ body });
+
+      expect(body).toEqual({ error: 'Email is required' });
+    });
   });
 });
