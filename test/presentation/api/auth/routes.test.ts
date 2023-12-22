@@ -5,6 +5,7 @@ import request from 'supertest';
 
 describe('Api routes testing', () => {
   const signupRoute = '/api/v1/auth/signup';
+  const loginRoute = '/api/v1/auth/login';
 
   afterAll(() => {
     testServer.close();
@@ -19,7 +20,19 @@ describe('Api routes testing', () => {
     await testServer.start();
     await TestDatabase.start();
   });
-  describe('Signup route testing', () => {
+
+  const user1 = {
+    name: 'User 1',
+    email: 'user1@example.com',
+    password: 'M5e5k5i57.',
+  };
+
+  const user2 = {
+    name: 'User 2',
+    email: 'user2@example.com',
+    password: 'M5e5k5i57.',
+  };
+  describe('Signup route tests api/auth/signup', () => {
     // const product1 = {
     //   name: 'Product 1',
     //   price: 1,
@@ -34,19 +47,7 @@ describe('Api routes testing', () => {
     //   image: '',
     // };
 
-    const user1 = {
-      name: 'User 1',
-      email: 'user1@example.com',
-      password: 'M5e5k5i57.',
-    };
-
-    const user2 = {
-      name: 'User 2',
-      email: 'user2@example.com',
-      password: 'M5e5k5i57.',
-    };
-
-    test('Should create multiple users api/signup', async () => {
+    test('Should create multiple users api/auth/signup', async () => {
       const { body } = await request(testServer.app)
         .post(signupRoute)
         .send(user1)
@@ -64,7 +65,7 @@ describe('Api routes testing', () => {
       });
     });
 
-    test('Should return an duplicate email error api/signup', async () => {
+    test('Should return an duplicate email error api/auth/signup', async () => {
       await UserModel.create(user1);
 
       const { body } = await request(testServer.app)
@@ -77,7 +78,7 @@ describe('Api routes testing', () => {
       });
     });
 
-    test('Should return a 400 error missing name api/signup', async () => {
+    test('Should return a 400 error missing name api/auth/signup', async () => {
       const { body } = await request(testServer.app)
         .post(signupRoute)
         .send({})
@@ -86,7 +87,7 @@ describe('Api routes testing', () => {
       expect(body).toEqual({ error: 'Name is required' });
     });
 
-    test('Should return a 400 error missing email api/signup', async () => {
+    test('Should return a 400 error missing email api/auth/signup', async () => {
       const { body } = await request(testServer.app)
         .post(signupRoute)
         .send({ name: 'test' })
@@ -95,7 +96,7 @@ describe('Api routes testing', () => {
       expect(body).toEqual({ error: 'Email is required' });
     });
 
-    test('Should return a 400 error invalid email api/signup', async () => {
+    test('Should return a 400 error invalid email api/auth/signup', async () => {
       const { body } = await request(testServer.app)
         .post(signupRoute)
         .send({ name: 'test', email: 'test@example' })
@@ -104,7 +105,7 @@ describe('Api routes testing', () => {
       expect(body).toEqual({ error: 'Email is not a valid email' });
     });
 
-    test('Should return a 400 error required password api/signup', async () => {
+    test('Should return a 400 error required password api/auth/signup', async () => {
       const { body } = await request(testServer.app)
         .post(signupRoute)
         .send({ name: 'test', email: 'test@example.com' })
@@ -113,7 +114,7 @@ describe('Api routes testing', () => {
       expect(body).toEqual({ error: 'Password is required' });
     });
 
-    test('Should return a 400 error required password api/signup', async () => {
+    test('Should return a 400 error required password api/auth/signup', async () => {
       const { body } = await request(testServer.app)
         .post(signupRoute)
         .send({ name: 'test', email: 'test@example.com', password: '1234' })
@@ -123,6 +124,24 @@ describe('Api routes testing', () => {
         error:
           'Invalid password, password must be at least 6 characters long and contain numers, symbols, and upper case and lower case characters',
       });
+    });
+  });
+
+  describe('Auth route tests api/auth/login', () => {
+    const loginUser = {
+      email: 'user1@example.com',
+      password: 'M5e5k5i57.',
+    };
+
+    test('Should return 200 api/auth/login', async () => {
+      await UserModel.create(user1);
+
+      const { body } = await request(testServer.app)
+        .post(loginRoute)
+        .send(loginUser)
+        .expect(200);
+
+      expect(body).toEqual({ msg: 'user successfully logged in' });
     });
   });
 });
