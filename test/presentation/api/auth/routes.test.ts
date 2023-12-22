@@ -47,7 +47,7 @@ describe('Api routes testing', () => {
     //   image: '',
     // };
 
-    test('Should create multiple users api/auth/signup', async () => {
+    test('Should create an user api/auth/signup', async () => {
       const { body } = await request(testServer.app)
         .post(signupRoute)
         .send(user1)
@@ -162,6 +162,17 @@ describe('Api routes testing', () => {
       console.log({ body });
 
       expect(body).toEqual({ error: 'Email is required' });
+    });
+
+    test('Should return 400 error required password api/auth/login', async () => {
+      const { body } = await request(testServer.app)
+        .post(loginRoute)
+        .send({ email: 'user1@example.com' })
+        .expect(400);
+
+      console.log({ body });
+
+      expect(body).toEqual({ error: 'Password is required' });
     });
   });
 });
