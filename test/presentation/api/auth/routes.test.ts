@@ -122,7 +122,7 @@ describe('Api routes testing', () => {
 
       expect(body).toEqual({
         error:
-          'Invalid password, password must be at least 6 characters long and contain numers, symbols, and upper case and lower case characters',
+          'Invalid password, password must be at least 6 characters long and contain numbers, symbols, and upper case and lower case characters',
       });
     });
   });
@@ -159,8 +159,6 @@ describe('Api routes testing', () => {
         .send()
         .expect(400);
 
-      console.log({ body });
-
       expect(body).toEqual({ error: 'Email is required' });
     });
 
@@ -170,9 +168,18 @@ describe('Api routes testing', () => {
         .send({ email: 'user1@example.com' })
         .expect(400);
 
-      console.log({ body });
-
       expect(body).toEqual({ error: 'Password is required' });
+    });
+
+    test('Should return 401 error incorrect password api/auth/login', async () => {
+      const { body } = await request(testServer.app)
+        .post(loginRoute)
+        .send({ email: 'user1@example.com', password: '1234' })
+        .expect(401);
+
+      expect(body).toEqual({
+        error: 'Incorrect email or password',
+      });
     });
   });
 });

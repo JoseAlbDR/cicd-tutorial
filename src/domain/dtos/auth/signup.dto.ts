@@ -22,7 +22,7 @@ export class SignupDto {
     if (!password) return ['Password is required'];
     if (!Validators.isValidPassword(password))
       return [
-        'Invalid password, password must be at least 6 characters long and contain numers, symbols, and upper case and lower case characters',
+        'Invalid password, password must be at least 6 characters long and contain numbers, symbols, and upper case and lower case characters',
       ];
 
     return [undefined, new SignupDto(name, email, password)];
