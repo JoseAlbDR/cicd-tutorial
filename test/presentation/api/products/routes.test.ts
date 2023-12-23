@@ -75,17 +75,15 @@ describe('Api routes testing', () => {
         .set('Cookie', tokenCookie)
         .expect(200);
 
-      // expect(body).toEqual(
-      //   expect.objectContaining({
-      //     currentPage: expect.any(Number),
-      //     maxPages: expect.any(Number),
-      //     limit: expect.any(Number),
-      //     total: expect.any(Number),
-      //     next: expect.any(String) || null,
-      //     prev: expect.any(String) || null,
-      //     products: expect.any(Array),
-      //   })
-      // );
+      expect(body).toEqual({
+        currentPage: expect.any(Number),
+        maxPages: expect.any(Number),
+        limit: expect.any(Number),
+        total: expect.any(Number),
+        next: expect.any(String || null),
+        prev: expect.any(String || null),
+        products: expect.any(Array),
+      });
     });
   });
 
