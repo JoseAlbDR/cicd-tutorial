@@ -7,6 +7,23 @@ describe('Api routes testing', () => {
   const productsRoute = '/api/v1/products';
   const loginRoute = '/api/v1/auth/login';
 
+  const getCookie = async () => {
+    await UserModel.create({
+      name: 'Tester',
+      email: 'test@example.com',
+      password: 'M5e5k5i57.',
+    });
+
+    const loginResponse = await request(testServer.app).post(loginRoute).send({
+      email: 'test@example.com',
+      password: 'M5e5k5i57.',
+    });
+
+    const tokenCookie = loginResponse.headers['set-cookie'];
+
+    return tokenCookie;
+  };
+
   afterAll(() => {
     testServer.close();
     TestDatabase.close();
@@ -38,20 +55,7 @@ describe('Api routes testing', () => {
 
   describe('Products route test get', () => {
     test('should return an array of products', async () => {
-      await UserModel.create({
-        name: 'Tester',
-        email: 'test@example.com',
-        password: 'M5e5k5i57.',
-      });
-
-      const loginResponse = await request(testServer.app)
-        .post(loginRoute)
-        .send({
-          email: 'test@example.com',
-          password: 'M5e5k5i57.',
-        });
-
-      const tokenCookie = loginResponse.headers['set-cookie'];
+      const tokenCookie = await getCookie();
 
       await Promise.all([
         request(testServer.app)
@@ -87,28 +91,13 @@ describe('Api routes testing', () => {
 
   describe('Products route test get', () => {
     test('Should return a new product', async () => {
-      await UserModel.create({
-        name: 'Tester',
-        email: 'test@example.com',
-        password: 'M5e5k5i57.',
-      });
-
-      const loginResponse = await request(testServer.app)
-        .post(loginRoute)
-        .send({
-          email: 'test@example.com',
-          password: 'M5e5k5i57.',
-        });
-
-      const tokenCookie = loginResponse.headers['set-cookie'];
+      const tokenCookie = await getCookie();
 
       const { body } = await request(testServer.app)
         .post(productsRoute)
         .set('Cookie', tokenCookie) // Attach the token as a cookie in subsequent requests
         .send(product1)
         .expect(201);
-
-      console.log({ body });
 
       expect(body).toEqual({
         id: expect.any(String),
