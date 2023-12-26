@@ -3,7 +3,7 @@ import { TestDatabase } from '../../../test-database';
 import { testServer } from '../../../test-server';
 import request from 'supertest';
 
-describe('Api routes testing', () => {
+describe('Api products routes testing', () => {
   const productsRoute = '/api/v1/products';
   const loginRoute = '/api/v1/auth/login';
 
@@ -24,7 +24,9 @@ describe('Api routes testing', () => {
     return tokenCookie;
   };
 
-  afterAll(() => {
+  afterAll(async () => {
+    await UserModel.deleteMany();
+    await ProductModel.deleteMany();
     testServer.close();
     TestDatabase.close();
   });
@@ -75,7 +77,7 @@ describe('Api routes testing', () => {
         .set('Cookie', tokenCookie)
         .expect(200);
 
-      console.log({ body });
+      // console.log({ body });
 
       // expect(body).toEqual({
       //   currentPage: expect.any(Number),
@@ -120,9 +122,9 @@ describe('Api routes testing', () => {
         .send(product)
         .expect(400);
 
-      console.log({ body });
-
       expect(body).toEqual({ error: 'Missing name' });
     });
+
+    //TODO rest of validation errors
   });
 });

@@ -1,13 +1,15 @@
-import { UserModel } from '../../../../src/data';
+import { ProductModel, UserModel } from '../../../../src/data';
 import { TestDatabase } from '../../../test-database';
 import { testServer } from '../../../test-server';
 import request from 'supertest';
 
-describe('Api routes testing', () => {
+describe('Api auth routes testing', () => {
   const signupRoute = '/api/v1/auth/signup';
   const loginRoute = '/api/v1/auth/login';
 
-  afterAll(() => {
+  afterAll(async () => {
+    await UserModel.deleteMany();
+    await ProductModel.deleteMany();
     testServer.close();
     TestDatabase.close();
   });
