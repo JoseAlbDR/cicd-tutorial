@@ -14,7 +14,7 @@ export class CreateProductDto {
   static create(props: { [key: string]: any }): [string?, CreateProductDto?] {
     const { name, onSale = true, price, tags, createdBy, image = '' } = props;
 
-    if (!name || name === '') return ['Mising name'];
+    if (!name || name === '') return ['Missing name'];
 
     let onSaleBoolean = onSale;
     if (typeof onSale !== 'boolean') onSaleBoolean = onSale === 'true';
