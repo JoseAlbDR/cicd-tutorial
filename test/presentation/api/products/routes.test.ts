@@ -31,7 +31,7 @@ describe('Api products routes testing', () => {
     TestDatabase.close();
   });
 
-  beforeEach(async () => {
+  afterEach(async () => {
     await UserModel.deleteMany();
     await ProductModel.deleteMany();
   });
@@ -77,17 +77,17 @@ describe('Api products routes testing', () => {
         .set('Cookie', tokenCookie)
         .expect(200);
 
-      // console.log({ body });
+      console.log({ body });
 
-      // expect(body).toEqual({
-      //   currentPage: expect.any(Number),
-      //   maxPages: expect.any(Number),
-      //   limit: expect.any(Number),
-      //   total: expect.any(Number),
-      //   next: expect.anything(),
-      //   prev: expect.anything(),
-      //   products: expect.any(Array),
-      // });
+      expect(body).toEqual({
+        currentPage: expect.any(Number),
+        maxPages: expect.any(Number),
+        limit: expect.any(Number),
+        total: expect.any(Number),
+        next: null,
+        prev: null,
+        products: expect.any(Array),
+      });
     });
   });
 

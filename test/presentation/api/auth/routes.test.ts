@@ -14,7 +14,8 @@ describe('Api auth routes testing', () => {
     TestDatabase.close();
   });
 
-  beforeEach(async () => {
+  afterEach(async () => {
+    await UserModel.deleteMany();
     await UserModel.deleteMany();
   });
 
