@@ -24,21 +24,21 @@ describe('Api products routes testing', () => {
     return tokenCookie;
   };
 
-  afterAll(async () => {
-    await UserModel.deleteMany();
-    await ProductModel.deleteMany();
-    testServer.close();
-    TestDatabase.close();
+  beforeAll(async () => {
+    await testServer.start();
+    await TestDatabase.start();
   });
 
   afterEach(async () => {
     await UserModel.deleteMany();
-    await ProductModel.deleteMany();
+    await UserModel.deleteMany();
   });
 
-  beforeAll(async () => {
-    await testServer.start();
-    await TestDatabase.start();
+  afterAll(async () => {
+    await UserModel.deleteMany();
+    await ProductModel.deleteMany();
+    await testServer.close();
+    TestDatabase.close();
   });
 
   const product1 = {
@@ -76,8 +76,6 @@ describe('Api products routes testing', () => {
         .get(productsRoute)
         .set('Cookie', tokenCookie)
         .expect(200);
-
-      console.log({ body });
 
       expect(body).toEqual({
         currentPage: expect.any(Number),

@@ -25,20 +25,19 @@ describe('Api fileupload routes testing', () => {
     return tokenCookie;
   };
 
-  afterAll(async () => {
-    await UserModel.deleteMany();
-    await ProductModel.deleteMany();
-    testServer.close();
-    TestDatabase.close();
-  });
-
-  afterEach(async () => {
-    await ProductModel.deleteMany();
-  });
-
   beforeAll(async () => {
     await testServer.start();
     await TestDatabase.start();
+  });
+
+  afterEach(async () => {
+    await UserModel.deleteMany();
+    await UserModel.deleteMany();
+  });
+
+  afterAll(async () => {
+    await testServer.close();
+    TestDatabase.close();
   });
 
   test('should return single uploaded image name', async () => {

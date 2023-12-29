@@ -7,11 +7,9 @@ describe('Api auth routes testing', () => {
   const signupRoute = '/api/v1/auth/signup';
   const loginRoute = '/api/v1/auth/login';
 
-  afterAll(async () => {
-    await UserModel.deleteMany();
-    await ProductModel.deleteMany();
-    testServer.close();
-    TestDatabase.close();
+  beforeAll(async () => {
+    await testServer.start();
+    await TestDatabase.start();
   });
 
   afterEach(async () => {
@@ -19,9 +17,11 @@ describe('Api auth routes testing', () => {
     await UserModel.deleteMany();
   });
 
-  beforeAll(async () => {
-    await testServer.start();
-    await TestDatabase.start();
+  afterAll(async () => {
+    await UserModel.deleteMany();
+    await ProductModel.deleteMany();
+    await testServer.close();
+    TestDatabase.close();
   });
 
   const user1 = {
