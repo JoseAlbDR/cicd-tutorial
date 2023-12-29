@@ -21,6 +21,7 @@ export class MongoDatabase {
 
   static async disconnect() {
     try {
+      console.log('Database disconnected');
       await mongoose.disconnect();
     } catch (error) {
       console.log('Mongo disconnect error');

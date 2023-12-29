@@ -77,6 +77,7 @@ export class Server {
   }
 
   public close() {
+    console.log('Server closed');
     this.serverListener?.close();
   }
 }

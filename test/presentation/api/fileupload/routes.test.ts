@@ -44,7 +44,6 @@ describe('Api fileupload routes testing', () => {
   test('should return single uploaded image name', async () => {
     const token = await getTokenCookie();
     const filePath = path.join(__dirname, 'images', 'test_image.jpg');
-    console.log({ filePath });
 
     const { body } = await request(testServer.app)
       .post(`${uploadRoute}/single/products`)
