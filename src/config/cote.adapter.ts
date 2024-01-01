@@ -21,7 +21,7 @@ export class CoteAdapter {
 
       requester.send(event, (err, result) => {
         if (err) {
-          console.error('There was an error:', err);
+          // console.error('There was an error:', err);
           reject(CustomError.internalServer(String(err)));
         } else {
           resolve(result);

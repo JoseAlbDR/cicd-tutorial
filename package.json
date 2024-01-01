@@ -7,7 +7,7 @@
     "test": "jest --runInBand",
     "test:watch": "jest --runInBand --watch ",
     "test:coverage": "jest --coverage",
-    "dev": "tsnd --respawn --clear src/app.ts",
+    "dev": "tsnd --respawn --clear src/app.ts && node src/microservices/main.ts",
     "build": "rimraf ./dist && tsc",
     "start": "npm run build && node dist/app.js",
     "seed": "ts-node-dev ./src/data/seed/seed.ts",
