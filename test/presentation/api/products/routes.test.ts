@@ -59,7 +59,7 @@ describe('Api products routes testing', () => {
     test('should return an array of products', async () => {
       const tokenCookie = await getCookie();
 
-      const [p1, p2] = await Promise.all([
+      await Promise.all([
         request(testServer.app)
           .post(productsRoute)
           .set('Cookie', tokenCookie) // Attach the token as a cookie in subsequent requests

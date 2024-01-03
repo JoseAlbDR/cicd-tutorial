@@ -11,7 +11,7 @@ describe('Api tags routes testing', () => {
 
   afterEach(async () => {
     await UserModel.deleteMany();
-    await UserModel.deleteMany();
+    await ProductModel.deleteMany();
   });
 
   afterAll(async () => {
