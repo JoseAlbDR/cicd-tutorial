@@ -31,12 +31,10 @@ describe('Api products routes testing', () => {
 
   afterEach(async () => {
     await UserModel.deleteMany();
-    await UserModel.deleteMany();
+    await ProductModel.deleteMany();
   });
 
   afterAll(async () => {
-    await UserModel.deleteMany();
-    await ProductModel.deleteMany();
     await testServer.close();
     TestDatabase.close();
   });
@@ -46,6 +44,7 @@ describe('Api products routes testing', () => {
     price: 1,
     tags: ['motor'],
     image: '',
+    createdBy: '507f1f77bcf86cd799439011',
   };
 
   const product2 = {
@@ -53,13 +52,14 @@ describe('Api products routes testing', () => {
     price: 2,
     tags: ['lifestyle', 'motor'],
     image: '',
+    createdBy: '507f1f77bcf86cd799439011',
   };
 
   describe('Products route test get', () => {
     test('should return an array of products', async () => {
       const tokenCookie = await getCookie();
 
-      await Promise.all([
+      const [p1, p2] = await Promise.all([
         request(testServer.app)
           .post(productsRoute)
           .set('Cookie', tokenCookie) // Attach the token as a cookie in subsequent requests

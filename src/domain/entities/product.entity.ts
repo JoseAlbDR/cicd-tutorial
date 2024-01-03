@@ -22,7 +22,7 @@ export class ProductEntity {
     if (!price) throw CustomError.badRequest('Missing price');
     if (typeof price !== 'number')
       throw CustomError.badRequest('Price must be a number');
-    if (!createdBy) throw CustomError.badRequest('Missing user');
+    if (!createdBy) throw CustomError.badRequest('Missing created by');
     if (!tags || tags.length === 0)
       throw CustomError.badRequest('Missing tags');
 
