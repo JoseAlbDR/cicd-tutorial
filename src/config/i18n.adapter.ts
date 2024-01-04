@@ -10,7 +10,7 @@ interface i18nOptions {
 }
 
 export class i18nAdaper {
-  static configure(options: i18nOptions) {
+  static async configure(options: i18nOptions) {
     const config = new I18n({ ...options });
 
     config.setLocale(options.defaultLocale);

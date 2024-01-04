@@ -47,7 +47,7 @@ export class Server {
       })
     );
     this.app.use(
-      i18nAdaper.configure({
+      await i18nAdaper.configure({
         locales: ['es', 'en'],
         directory: path.join(__dirname, 'locales'),
         defaultLocale: 'en',

@@ -4,7 +4,7 @@
   "description": "Practica para Node Avanzado",
   "main": "index.js",
   "scripts": {
-    "test": "jest --runInBand",
+    "test": "jest --runInBand --detectOpenHandles",
     "test:watch": "jest --runInBand --watch ",
     "test:coverage": "jest --coverage",
     "dev": "tsnd --respawn --clear src/app.ts && node src/microservices/main.ts",
