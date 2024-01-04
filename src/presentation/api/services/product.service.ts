@@ -24,8 +24,6 @@ export class ProductService {
 
       const maxPages = Math.ceil(total / limit);
 
-      console.log({ products });
-
       const productEntities = products.map((product) => ({
         ...ProductEntity.fromObject({
           id: product.id,
