@@ -1,10 +1,38 @@
 version: '3.8'
 
 services:
-  mongo-db:
-    image: mongo:6.0.6
+  db:
+    image: mongo:7.0.5
     restart: always
-    volumes:
-      - ./mongo:/data/db
     ports:
-      - 27018:27017
+      - '27018:27017'
+    container_name: nodepop-db
+    volumes:
+      - mongo:/data/db
+
+  app:
+    depends_on:
+      - db
+    build:
+      context: .
+      target: ${STAGE}
+      dockerfile: Dockerfile
+
+    volumes:
+      - .:/app/
+      - /app/node_modules
+
+    container_name: nodepop-app
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      PORT: ${PORT}
+      MONGO_URL: ${MONGO_URL}
+      MONGO_DB_NAME: ${MONGO_DB_NAME}
+      JWT_SEED: ${JWT_SEED}
+      PUBLIC_FOLDER: ${PUBLIC_FOLDER}
+      UPLOADS_FOLDER: ${UPLOADS_FOLDER}
+
+volumes:
+  mongo:
+    external: false
