@@ -4,7 +4,7 @@
 
 ### VIA GIT
 
-#### Development
+### Development
 
 1.- **Clone the project**
 
@@ -54,7 +54,7 @@
   npm run thumbnail-service
 ```
 
-#### Production
+### Production
 
 1.- **Clone the project**
 
