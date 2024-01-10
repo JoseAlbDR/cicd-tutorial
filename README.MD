@@ -136,7 +136,7 @@
 3.- **Seed database if needed**
 
 ```bash
-  npm run seed
+  npm i ts-node-dev && npm run seed
 ```
 
 ## TESTING
