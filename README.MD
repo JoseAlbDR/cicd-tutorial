@@ -166,24 +166,16 @@ Example .env.test environment file
 
 ## FEATURES
 
-1.- **Authentification**
+### Authentication
 
-Nodepop-adv uses bcrypt to hash and secure passwords and JWT for authentication.
-By signing up the user data is stored in the database with the hashed password.
-Login endpoint handles the validation of the password and send back a toke in a cookie.
-Auth middleware handles authentication validating the received token in the cookie and setting new property in body called user with the payload from the token
+Nodepop-adv uses bcrypt to hash and secure passwords and JWT for authentication. Upon signing up, user data is stored in the database with the hashed password. The login endpoint handles password validation and sends back a token in a cookie. The Auth middleware authenticates by validating the received token in the cookie and sets a new property in the body called 'user' with the payload from the token.
 
-2.- **Internalization**
+### Internationalization
 
-Nodepop-adv uses i18n library to internalize the application.
-By accessing `http://localhost:${PORT}` you will see a Frontend page that shows the current products in database.
-In the page you will see two flags, one for spanish language and one for english language, by clicking in then you can switch the language of the page.
+Nodepop-adv uses the i18n library to internationalize the application. Accessing [http://localhost:${PORT}](http://localhost:${PORT}) will display a frontend page showing the current products in the database. On this page, two flags are visible—one for Spanish language and one for English language. By clicking on them, users can switch the language of the page.
 
-3.- **Image upload with thumbnail background task**
+### Image Upload with Thumbnail Background Task
 
-Nodepop-adv uses express-fileupload to handle the upload of the products images.
-When uploading an image it will be stored in ${PUBLIC_FOLDER}/${UPLOADS_FOLDER}/products, public/uploads/products by default.
-The uploaded image name will be generated based in the original name plus an unique identifier.
+Nodepop-adv utilizes express-fileupload to handle the upload of product images. When an image is uploaded, it is stored in `${PUBLIC_FOLDER}/${UPLOADS_FOLDER}/products` (default: public/uploads/products). The uploaded image name is generated based on the original name plus a unique identifier.
 
-A thumbnail is generated while uploading an image using Cote for the microservice and jimp to build the thumbnail.
-In the FileUploadService a event will be fired called 'generate-thumbnail' and the ThumbnailMicroservice will be listening for that event to generate the thumbnail.
+A thumbnail is generated during the image upload process using Cote for the microservice and jimp to build the thumbnail. Within the FileUploadService, an event called 'generate-thumbnail' is triggered, and the ThumbnailMicroservice listens for this event to generate the thumbnail.
