@@ -1,4 +1,4 @@
-import { I18n } from 'i18n';
+import i18n from 'i18n';
 
 interface i18nOptions {
   locales: string[];
@@ -11,10 +11,10 @@ interface i18nOptions {
 
 export class i18nAdaper {
   static async configure(options: i18nOptions) {
-    const config = new I18n({ ...options });
+    i18n.configure({ ...options });
 
-    config.setLocale(options.defaultLocale);
+    i18n.setLocale(options.defaultLocale);
 
-    return config.init;
+    return i18n.init;
   }
 }
