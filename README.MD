@@ -79,7 +79,7 @@
 
   PORT=3000
 
-  MONGO_URL=mongodb://nodepop-adv-db
+  MONGO_URL=mongodb://localhost:27017
   MONGO_DB_NAME=nodepop-adv
 
   JWT_SEED=youSecretKey
@@ -118,7 +118,7 @@
 
   PORT=3000
 
-  MONGO_URL=mongodb://localhost:27017
+  MONGO_URL=mongodb://nodepop-adv-db
   MONGO_DB_NAME=nodepop-adv
 
   JWT_SEED=youSecretKey
@@ -136,7 +136,7 @@
 3.- **Seed database if needed**
 
 ```bash
-  npm run seed
+  npm i && npm run seed
 ```
 
 ## TESTING
