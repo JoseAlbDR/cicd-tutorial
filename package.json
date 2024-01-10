@@ -7,12 +7,13 @@
     "test": "jest --runInBand --detectOpenHandles",
     "test:watch": "jest --runInBand --watch ",
     "test:coverage": "jest --coverage",
-    "dev": "tsnd --respawn --clear src/app.ts && node src/microservices/main.ts",
+    "dev": "tsnd --respawn --clear src/app.ts",
     "copy-assets": "ts-node ./src/scripts/copy-assets",
     "build": "rimraf ./dist && tsc && npm run copy-assets",
-    "start": "node dist/app.js",
+    "start": "node dist/app.js ",
     "seed": "ts-node-dev ./src/data/seed/seed.ts",
-    "thumbnail-service": "ts-node-dev ./src/microservices/thumbnail/main.ts"
+    "thumbnail-service": "ts-node-dev ./src/microservices/thumbnail/main.ts",
+    "start-seed": "node dist/app.js && node dist/data/seed/seed.js"
   },
   "repository": {
     "type": "git",

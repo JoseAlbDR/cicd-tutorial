@@ -17,11 +17,9 @@ services:
       context: .
       target: ${STAGE}
       dockerfile: Dockerfile
-
     volumes:
       - .:/app/
       - /app/node_modules
-
     container_name: nodepop-app
     ports:
       - ${PORT}:${PORT}
@@ -32,6 +30,17 @@ services:
       JWT_SEED: ${JWT_SEED}
       PUBLIC_FOLDER: ${PUBLIC_FOLDER}
       UPLOADS_FOLDER: ${UPLOADS_FOLDER}
+
+  thumbnail:
+    depends_on:
+      - app
+    build:
+      context: .
+      target: thumbnail-service
+      dockerfile: Dockerfile
+    container_name: nodepop-thumbnail
+    volumes:
+      - .:/app
 
 volumes:
   mongo:
