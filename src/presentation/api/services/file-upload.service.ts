@@ -35,7 +35,7 @@ export class FileUploadService {
       file.mv(`${this.destination}/${fileName}`);
 
       await this.coteAdapter.request({
-        name: 'microservice',
+        name: 'Thumbnail microservice Requester',
         type: 'generate-thumbnail',
         imagePath: this.destination,
         imageExtension: extension,

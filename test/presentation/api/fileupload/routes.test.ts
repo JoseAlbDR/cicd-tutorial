@@ -44,6 +44,8 @@ describe('Api fileupload routes testing', () => {
     const token = await getTokenCookie();
     const filePath = path.join(__dirname, 'images', 'test_image.jpg');
 
+    expect.assertions(1);
+
     const { body } = await request(testServer.app)
       .post(`${uploadRoute}/single/products`)
       .set('Cookie', token)

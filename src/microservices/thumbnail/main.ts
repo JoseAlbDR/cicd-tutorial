@@ -13,7 +13,7 @@ interface ThumbnailPayload extends Event {
 
 async function main() {
   const responder = new Responder({
-    name: 'Thumbnail service',
+    name: 'Thumbnail microservice Responder',
   });
 
   responder.on('generate-thumbnail', async (req, done) => {

@@ -13,7 +13,8 @@
     "start": "node dist/app.js ",
     "seed": "ts-node-dev ./src/data/seed/seed.ts",
     "thumbnail-service": "ts-node-dev ./src/microservices/thumbnail/main.ts",
-    "start-seed": "node dist/app.js && node dist/data/seed/seed.js"
+    "start-seed": "node dist/app.js && node dist/data/seed/seed.js",
+    "docker-seed": "ts-node-dev ./src/scripts/docker-seed-db.ts"
   },
   "repository": {
     "type": "git",
