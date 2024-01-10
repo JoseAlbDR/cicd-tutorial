@@ -6,10 +6,11 @@
 
 ### Development
 
-1.- **Clone the project**
+1.- **Clone the project and move to the folder**
 
 ```bash
   git clone https://github.com/JoseAlbDR/practica-node-avanzado.git
+  cd practica-node-avanzado
 ```
 
 2.- **Install the project dependencies**
@@ -56,10 +57,11 @@
 
 ### Production
 
-1.- **Clone the project**
+1.- **Clone the project and move to the folder**
 
 ```bash
   git clone https://github.com/JoseAlbDR/practica-node-avanzado.git
+  cd practica-node-avanzado
 ```
 
 2.- **Install the project dependencies**
@@ -100,10 +102,11 @@
 
 ### VIA DOCKER
 
-1.- **Clone the project**
+1.- **Clone the project and move to the folder**
 
 ```bash
   git clone https://github.com/JoseAlbDR/practica-node-avanzado.git
+  cd practica-node-avanzado
 ```
 
 2.- **Copy .env.template and rename it to .env, fill the needed environment variables with yours, set STAGE to production**
