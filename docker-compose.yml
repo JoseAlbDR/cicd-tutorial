@@ -40,7 +40,7 @@ services:
       dockerfile: Dockerfile
     container_name: nodepop-adv-thumbnail
     volumes:
-      - .:app
+      - .:/app
 
 volumes:
   mongo:
