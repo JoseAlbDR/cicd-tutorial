@@ -138,9 +138,11 @@
 
 ## TESTING
 
-1.- Testing uses .env.test environment file, fill it as your needs and run
+1.- Testing uses .env.test environment file, fill it as your needs
 
 Test are done with jest and supertest, testing all the api endpoints.
+
+Run:
 
 ```bash
   npm test
