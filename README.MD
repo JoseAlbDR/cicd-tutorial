@@ -2,6 +2,12 @@
 
 ## INSTALLATION
 
+0.1.- **Optionally**
+Run a mongo db docker container with the following command, all .env.templates are ready to work with this db
+```bash
+  docker run --name nodepop-adb-db -d -p 27017:27017 mongo:6.0.6
+```
+
 ### VIA GIT
 
 ### Development
