@@ -15,10 +15,10 @@ services:
       - db
     build:
       context: .
-      target: ${STAGE}
+      target: nodepop-adv-app
       dockerfile: Dockerfile
     volumes:
-      - .:/app/
+      - .:/app
       - /app/node_modules
     container_name: nodepop-app
     ports:
@@ -36,11 +36,11 @@ services:
       - app
     build:
       context: .
-      target: thumbnail-service
+      target: thumbnail-microservice
       dockerfile: Dockerfile
-    container_name: nodepop-thumbnail
+    container_name: nodepop-adv-thumbnail
     volumes:
-      - .:/app
+      - .:app
 
 volumes:
   mongo:
