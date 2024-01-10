@@ -25,7 +25,7 @@ services:
       - ${PORT}:${PORT}
     environment:
       PORT: ${PORT}
-      MONGO_URL: ${MONGO_URL}
+      MONGO_URL: mongodb://nodepop-adv-db
       MONGO_DB_NAME: ${MONGO_DB_NAME}
       JWT_SEED: ${JWT_SEED}
       PUBLIC_FOLDER: ${PUBLIC_FOLDER}
