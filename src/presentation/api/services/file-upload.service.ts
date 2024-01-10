@@ -28,9 +28,13 @@ export class FileUploadService {
 
       this.makeFolder(this.destination);
 
-      const fileExtension = file.mimetype.split('/').at(-1) ?? '';
+      console.log({ file });
 
-      const fileName = `${this.uuid}.${fileExtension}`;
+      const [name, extension] = file.name.split('.') ?? '';
+
+      console.log({ name, extension });
+
+      const fileName = `${this.uuid}-${name}.${extension}`;
 
       file.mv(`${this.destination}/${fileName}`);
 
@@ -38,7 +42,7 @@ export class FileUploadService {
         name: 'microservice',
         type: 'generate-thumbnail',
         imagePath: this.destination,
-        imageExtension: fileExtension,
+        imageExtension: extension,
         imageName: fileName.split('.').at(0),
       });
 
