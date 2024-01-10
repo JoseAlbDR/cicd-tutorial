@@ -11,4 +11,6 @@ export const envs = {
 
   PUBLIC_FOLDER: get('PUBLIC_FOLDER').default('public').asString(),
   UPLOADS_FOLDER: get('UPLOADS_FOLDER').default('uploads').asString(),
+
+  STAGE: get('STAGE').required().asString(),
 };

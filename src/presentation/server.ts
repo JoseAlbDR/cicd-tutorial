@@ -51,7 +51,7 @@ export class Server {
         locales: ['es', 'en'],
         directory: path.join(__dirname, 'locales'),
         defaultLocale: 'en',
-        autoReload: true,
+        autoReload: envs.STAGE !== 'test',
         syncFiles: true,
         cookie: 'nodepop-locale',
       })
