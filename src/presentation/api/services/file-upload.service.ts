@@ -28,11 +28,7 @@ export class FileUploadService {
 
       this.makeFolder(this.destination);
 
-      console.log({ file });
-
       const [name, extension] = file.name.split('.') ?? '';
-
-      console.log({ name, extension });
 
       const fileName = `${this.uuid}-${name}.${extension}`;
 
