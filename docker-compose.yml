@@ -17,9 +17,6 @@ services:
       context: .
       target: nodepop-adv-app
       dockerfile: Dockerfile
-    volumes:
-      - /app
-      - /node_modules:/app/node_modules
     container_name: nodepop-app
     ports:
       - ${PORT}:${PORT}
@@ -39,9 +36,6 @@ services:
       target: thumbnail-microservice
       dockerfile: Dockerfile
     container_name: nodepop-thumbnail
-    volumes:
-      - /app
-      - /node_modules:/app/node_modules
 
 volumes:
   mongo:

@@ -11,10 +11,10 @@
     "copy-assets": "ts-node ./src/scripts/copy-assets",
     "build": "rimraf ./dist && tsc && npm run copy-assets",
     "start": "node dist/app.js ",
+    "prod-seed": "node dist/data/seed/seed.js",
+    "prod-thumbnail": "node dist/microservices/thumbnail/main.js",
     "seed": "ts-node-dev ./src/data/seed/seed.ts",
-    "thumbnail-service": "ts-node-dev ./src/microservices/thumbnail/main.ts",
-    "start-seed": "node dist/app.js && node dist/data/seed/seed.js",
-    "docker-seed": "ts-node-dev ./src/scripts/docker-seed-db.ts"
+    "thumbnail-service": "ts-node-dev ./src/microservices/thumbnail/main.ts"
   },
   "repository": {
     "type": "git",

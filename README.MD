@@ -106,45 +106,6 @@ Run a mongo db docker container with the following command, all .env.templates a
   npm start
 ```
 
-### VIA DOCKER
-
-1.- **Clone the project and move to the folder**
-
-```bash
-  git clone https://github.com/JoseAlbDR/practica-node-avanzado.git
-  cd practica-node-avanzado
-```
-
-2.- **Copy .env.template and rename it to .env, fill the needed environment variables with yours, set STAGE to production**
-
-```js
-  # Default Settings
-
-  STAGE=production
-
-  PORT=3000
-
-  MONGO_URL=mongodb://nodepop-adv-db
-  MONGO_DB_NAME=nodepop-adv
-
-  JWT_SEED=youSecretKey
-
-  PUBLIC_FOLDER=public
-  UPLOADS_FOLDER=uploads
-```
-
-2.- **Run docker compose**
-
-```bash
-  docker compose up
-```
-
-3.- **Seed database if needed**
-
-```bash
-  npm i && npm run seed
-```
-
 ## TESTING
 
 1.- **Testing uses .env.test environment file, fill it as your needs**
