@@ -112,12 +112,6 @@ Run a mongo db docker container with the following command, all .env.templates a
 
 Test are done with jest and supertest, testing all the api endpoints.
 
-Run:
-
-```bash
-  npm test
-```
-
 **NOTE**: This initializes a new server and empty database
 
 Example .env.test environment file
@@ -133,6 +127,13 @@ Example .env.test environment file
   PUBLIC_FOLDER=public
   UPLOADS_FOLDER=uploads
 ```
+
+Run:
+
+```bash
+  npm test
+```
+
 
 ## FEATURES
 
