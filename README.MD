@@ -106,6 +106,18 @@ Run a mongo db docker container with the following command, all .env.templates a
   npm start
 ```
 
+6.- **Populate database**
+
+```bash
+  npm run prod-seed
+```
+
+7.- **Run the Thumbnail Microservice**
+
+```bash
+  npm run prod-thumbnail
+```
+
 ## TESTING
 
 1.- **Testing uses .env.test environment file, fill it as your needs**
