@@ -26,6 +26,7 @@ export class AuthService {
   public async login(loginDto: LoginDto) {
     try {
       const user = await UserModel.findOne({ email: loginDto.email });
+
       if (!user) throw CustomError.unauthorized('Incorrect email or password');
 
       const isMatch = user.checkPassword(loginDto.password);

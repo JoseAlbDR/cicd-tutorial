@@ -15,8 +15,8 @@ services:
       - db
     build:
       context: .
-      target: nodepop-adv-app
       dockerfile: Dockerfile
+      target: nodepop-adv-app
     container_name: nodepop-app
     ports:
       - ${PORT}:${PORT}

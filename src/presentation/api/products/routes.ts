@@ -22,6 +22,18 @@ export class ProductRoutes {
       errorHandler
     );
 
+    router.use([
+      FileUploadMiddleware.containFiles(),
+      FileUploadMiddleware.validateType(['users', 'products']),
+      FileUploadMiddleware.validateExtension([
+        'png',
+        'jpg',
+        'jpeg',
+        'gif',
+        'webp',
+      ]),
+    ]);
+
     router.get(
       '/',
       authMiddleware.authenticateUser,
@@ -31,7 +43,6 @@ export class ProductRoutes {
     router.post(
       '/',
       authMiddleware.authenticateUser,
-      FileUploadMiddleware.containFiles({ required: false, varName: 'image' }),
       productController.createProduct
     );
 

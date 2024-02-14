@@ -16,7 +16,7 @@ export class AppRoutes {
     router.use('/api/v1/auth', AuthRoutes.routes);
     router.use('/api/v1/upload', FileUploadRoutes.routes);
 
-    // ViEWS routes
+    // WEB routes
     router.use('/', ProductWebRoutes.routes);
     router.use('/change-locale', ChangeLocaleRoutes.routes);
 
