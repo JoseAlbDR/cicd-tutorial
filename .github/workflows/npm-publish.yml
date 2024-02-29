@@ -26,6 +26,3 @@ jobs:
       # - run: npm test
       - run: npm run build
       - run: pm2 restart nodepop
-
-
-pm2 start src/index.js --name=backendserver
