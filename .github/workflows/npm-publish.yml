@@ -12,7 +12,23 @@ env:
   AWS_PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY }}
 
 jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
   build:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
