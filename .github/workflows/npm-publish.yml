@@ -50,7 +50,8 @@ jobs:
 
       - name: Copy new build
         run: |
-          scp -i key.pem -r ./dist ubuntu@34.193.64.56:~/cicd-app/
+          ssh -i key.pem ubuntu@34.193.64.56 "mkdir -p ~/cicd-app/dist"
+          scp -i key.pem -r ./dist/* ubuntu@34.193.64.56:~/cicd-app/dist/
 
       - name: Copy node_modules
         run: |
