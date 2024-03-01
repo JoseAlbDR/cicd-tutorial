@@ -36,7 +36,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set permissions for private key
+      - name: Generate private key
         run: |
           echo "${{ secrets.AWS_PRIVATE_KEY }}" > key.pem
           chmod 600 key.pem
@@ -46,28 +46,19 @@ jobs:
           echo "${{ secrets.ENVIRONMENT }}" > .env
 
       - name: Cache dependencies
-        uses: actions/cache@v2
-        id: cache
+        uses: actions/cache@v3
+        id: cache-node-modules
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
+          path: 'node_modules'
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Install dependencies if cache not found or package.json changed
-        if: steps.cache.outputs.cache-hit != 'true' || steps.cache.outputs.cache-key != '${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}'
-        run: npm ci
-
-      - name: Copy node_modules from cache or npm ci
-        run: |
-          if [ -d ~/.npm/_npx/ ]; then
-            mkdir -p node_modules
-            cp -R ~/.npm/_npx/* node_modules/ || true
-          fi
+      - name: Install dependencies if cache not found
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm install
 
       - name: Build app
         run: npm run build
-
+        
       - name: Sync files to production server
         run: |
           rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -i key.pem" ./.env ubuntu@34.193.64.56:~/cicd-app/.env
