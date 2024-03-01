@@ -56,7 +56,7 @@ jobs:
           rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -i key.pem" ./.env ubuntu@34.193.64.56:~/cicd-app/.env
           rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -i key.pem" ./public/ ubuntu@34.193.64.56:~/cicd-app/public/
           rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -i key.pem" ./dist/ ubuntu@34.193.64.56:~/cicd-app/dist/
-          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -i key.pem" ./node_modules/ ubuntu@34.193.64.56:~/cicd-app/node_modules/
+          rsync -avzq --delete -e "ssh -o StrictHostKeyChecking=no -i key.pem" ./node_modules/ ubuntu@34.193.64.56:~/cicd-app/node_modules/
 
   deploy:
     needs: build
