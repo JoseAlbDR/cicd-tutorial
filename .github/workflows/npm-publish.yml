@@ -38,9 +38,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-npm-
 
-      - name: Install dependencies if cache not found
-        if: steps.cache.outputs.cache-hit != 'true'
+      - name: Install dependencies if cache not found or package.json changed
+        if: steps.cache.outputs.cache-hit != 'true' || steps.cache.outputs.cache-key != '${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}'
         run: npm ci
+
+      - name: Copy node_modules from cache
+        if: steps.cache.outputs.cache-hit == 'true'
+        run: cp -R ~/.npm/_npx/* node_modules/
 
       - name: Build app
         run: npm run build
