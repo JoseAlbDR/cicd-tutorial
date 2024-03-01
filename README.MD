@@ -15,8 +15,8 @@ Run a mongo db docker container with the following command, all .env.templates a
 1.- **Clone the project and move to the folder**
 
 ```bash
-  git clone https://github.com/JoseAlbDR/practica-node-avanzado.git
-  cd practica-node-avanzado
+  git clone https://github.com/JoseAlbDR/keepcoding-cicd.git
+  cd keepcoding-cicd
 ```
 
 2.- **Install the project dependencies**
