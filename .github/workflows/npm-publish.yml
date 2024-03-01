@@ -38,8 +38,8 @@ jobs:
 
       - name: Sync files to production server
         run: |
-          rsync -avz --delete ./dist/ ubuntu@34.193.64.56:~/cicd-app/dist/
-          rsync -avz --delete ./node_modules/ ubuntu@34.193.64.56:~/cicd-app/node_modules/
+          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -i key.pem" ./dist/ ubuntu@34.193.64.56:~/cicd-app/dist/
+          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -i key.pem" ./node_modules/ ubuntu@34.193.64.56:~/cicd-app/node_modules/
 
   deploy:
     needs: build
