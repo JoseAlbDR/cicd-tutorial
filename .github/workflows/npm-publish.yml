@@ -25,7 +25,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+
+      - name: Set up cache
+        id: cache-node-modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Set permissions for private key
         run: |
@@ -46,22 +54,21 @@ jobs:
 
       - name: Delete previous build
         run: |
-          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@34.193.64.56 "rm -rf ~/cicd-app/"
+          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@34.193.64.56 "rm -rf ~/cicd-app/dist"
 
       - name: Copy new build
         run: |
-          scp -i key.pem -r ./dist ubuntu@34.193.64.56:~/cicd-app/
+          scp -i key.pem -r ./dist ubuntu@34.193.64.56:~/cicd-app/dist
 
-      - name: Copy node_modules
+      - name: Copy node_modules if cache was restored
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: |
-          scp -i key.pem -r ./node_modules ubuntu@34.193.64.56:~/cicd-app/
+          scp -i key.pem -r ./node_modules ubuntu@34.193.64.56:~/cicd-app/node_modules
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18.x]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
