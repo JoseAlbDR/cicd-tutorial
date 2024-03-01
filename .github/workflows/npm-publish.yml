@@ -38,7 +38,7 @@ jobs:
 
       - name: Generate private key
         run: |
-          echo "${{ secrets.AWS_PRIVATE_KEY }}" > key.pem
+          echo "${AWS_PRIVATE_KEY}" > key.pem
           chmod 600 key.pem
           
       - name: Generate environment file
@@ -72,7 +72,7 @@ jobs:
     steps:
       - name: Set permissions for private key
         run: |
-          echo "${{ secrets.AWS_PRIVATE_KEY }}" > key.pem
+          echo "${AWS_PRIVATE_KEY}" > key.pem
           chmod 600 key.pem
     
       - name: Restart app
