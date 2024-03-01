@@ -42,9 +42,11 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true' || steps.cache.outputs.cache-key != '${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}'
         run: npm ci
 
-      - name: Copy node_modules from cache
+      - name: Copy _npx directory
         if: steps.cache.outputs.cache-hit == 'true'
-        run: cp -R ~/.npm/_npx/* node_modules/
+        run: |
+          mkdir -p node_modules
+          cp -R ~/.npm/_npx/* node_modules/ || true
 
       - name: Build app
         run: npm run build
