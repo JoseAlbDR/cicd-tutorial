@@ -5,10 +5,13 @@ on:
     branches: ['main']
   pull_request:
     branches: ['main']
-
+    
+env:
+  AWS_PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY }}
+  
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [18.x]
@@ -24,20 +27,52 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      - name: CI (Continous Integration)
+      - name: Set permissions for private key
+        run: |
+          echo "${{ secrets.AWS_PRIVATE_KEY }}" > key.pem
+          chmod 600 key.pem
+          
+      - name: Generate environment file
         run: |
           echo "${{ secrets.ENVIRONMENT }}" > .env
+
+      - name: Install dependencies
+        run: |
           npm ci
+
+      - name: Build app
+        run: |
           npm run build
+
+      - name: Delete previous build
+        run: |
+          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@34.193.64.56 "rm -rf ~/cicd-app/"
+
+      - name: Copy new build
+        run: |
+          scp -i key.pem -r ./dist ubuntu@34.193.64.56:~/cicd-app/
+
+      - name: Copy node_modules
+        run: |
+          scp -i key.pem -r ./node_modules ubuntu@34.193.64.56:~/cicd-app/
 
   deploy:
     needs: build
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: CD (Continuous Deployment)
-        run: pm2 restart nodepop
+      - name: Set permissions for private key
+        run: |
+          echo "${{ secrets.AWS_PRIVATE_KEY }}" > key.pem
+          chmod 600 key.pem
+
+      - name: Restart app
+        run: |
+          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@34.193.64.56 "pm2 restart nodepop"
