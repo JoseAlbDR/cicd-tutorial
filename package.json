@@ -47,7 +47,6 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@faker-js/faker": "^8.3.1",
     "@types/cookie-parser": "^1.4.6",
     "@types/express-fileupload": "^1.4.4",
     "@types/uuid": "^9.0.7",
