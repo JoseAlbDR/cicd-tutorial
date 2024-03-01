@@ -46,7 +46,7 @@ jobs:
           echo "${{ secrets.ENVIRONMENT }}" > .env
 
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: cache-node-modules
         with:
           path: 'node_modules'
@@ -61,7 +61,7 @@ jobs:
         
       - name: Sync files to production server
         run: |
-          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -i key.pem" ./.env ubuntu@34.193.64.56:~/cicd-app/.env
+          scp -i key.pem -o StrictHostKeyChecking=no ./.env ubuntu@34.193.64.56:~/cicd-app/.env
           rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -i key.pem" ./public/ ubuntu@34.193.64.56:~/cicd-app/public/
           rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -i key.pem" ./dist/ ubuntu@34.193.64.56:~/cicd-app/dist/
           rsync -avzq --delete -e "ssh -o StrictHostKeyChecking=no -i key.pem" ./node_modules/ ubuntu@34.193.64.56:~/cicd-app/node_modules/
