@@ -1,6 +1,6 @@
 {
   "name": "practica-node-avanzado",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Practica para Node Avanzado",
   "main": "index.js",
   "scripts": {
