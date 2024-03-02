@@ -41,17 +41,19 @@
       <div class="container">
         <div class="row col-12">
           <div class="col-6">
-            <a class="navbar-brand" href="#page-top"><%= title %> Cache</a>
+            <a class="navbar-brand" href="#page-top"
+              ><%= title %> CI/CD Working!!!</a
+            >
           </div>
           <div class="col-6">
             <% getLocales().forEach(locale => { %>
-              <a href="/change-locale/<%= locale %>" >
-                <i class="flag flag-<%= locale === 'en' ? 'uk' : locale %>" ></i>
-              </a>
+            <a href="/change-locale/<%= locale %>">
+              <i class="flag flag-<%= locale === 'en' ? 'uk' : locale %>"></i>
+            </a>
             <% }) %>
           </div>
         </div>
-        
+
         <!-- <button
           class="navbar-toggler"
           type="button"
@@ -87,7 +89,10 @@
     <header class="masthead">
       <div class="container">
         <div class="masthead-subheading"><%=__("Welcome To Our Shop!") %></div>
-        <div class="masthead-heading text-uppercase"><%= __("It's Nice To Meet You") %></div>
+        <div class="masthead-heading text-uppercase">
+          <%= __("It's Nice To Meet You") %>
+        </div>
       </div>
     </header>
-
+  </body>
+</html>
