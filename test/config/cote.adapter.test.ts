@@ -23,10 +23,6 @@ describe('cote.adapter test', () => {
     coteAdapter = new CoteAdapter();
   });
 
-  test('expect false', () => {
-    expect(true).toBe(false);
-  });
-
   test('should send a request using requester.send with correct parameters', async () => {
     mockRequesterSend.mockImplementation((event, cb) => {
       cb(null, { response: 'OK' });
